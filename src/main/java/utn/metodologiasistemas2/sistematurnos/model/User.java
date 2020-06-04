@@ -1,5 +1,6 @@
 package utn.metodologiasistemas2.sistematurnos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,8 @@ public class User {
     private Date createdAt;
 
     private Usertype usertype;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Category category;
 }
