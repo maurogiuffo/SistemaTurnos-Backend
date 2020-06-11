@@ -12,6 +12,7 @@ import utn.metodologiasistemas2.sistematurnos.service.UserService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,9 +25,7 @@ public class UserController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id_user}")
-
     public ResponseEntity getUserById(@PathVariable Integer id_user) {
 
         ResponseEntity response;
@@ -42,13 +41,11 @@ public class UserController {
         return response;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/")
     public List<User> getAll(@RequestParam(required = false) String firstname){
         return userService.getAllUser(firstname);
