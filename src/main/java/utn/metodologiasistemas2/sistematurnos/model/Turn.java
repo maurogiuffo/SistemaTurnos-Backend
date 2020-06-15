@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -26,6 +27,8 @@ public class Turn {
     @Column(name = "turn_date")
     private Date turnDate;
 
+    @Column(name = "turn_time")
+    private LocalTime turnTime;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private User customer;
