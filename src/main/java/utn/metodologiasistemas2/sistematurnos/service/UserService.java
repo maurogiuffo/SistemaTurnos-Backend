@@ -43,13 +43,13 @@ public class UserService {
         return  userRepository.findByFirstName(firstName);
     }
 
-    public User login(String username, String password) throws UserNotexistException, ValidationException{
+    public User login(String email, String password) throws UserNotexistException, ValidationException{
 
-        if (username == null || password == null) {
-            throw new ValidationException("username and password must have a value!");
+        if (email == null || password == null) {
+            throw new ValidationException("email and password must have a value!");
         }
 
-        User user = userRepository.findByUsernameAndPassword(username,password);
+        User user = userRepository.findByEmailAndPassword(email,password);
 
         return Optional.ofNullable(user).orElseThrow(() -> new UserNotexistException());
     }
