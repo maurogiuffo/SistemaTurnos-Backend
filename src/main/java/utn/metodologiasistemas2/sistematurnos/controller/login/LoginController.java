@@ -12,6 +12,7 @@ import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.service.UserService;
 import utn.metodologiasistemas2.sistematurnos.session.SessionManager;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/")
 public class LoginController {

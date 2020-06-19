@@ -1,5 +1,7 @@
 package utn.metodologiasistemas2.sistematurnos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +24,6 @@ public class Category {
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<User> users;
 }
