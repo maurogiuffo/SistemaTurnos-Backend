@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.exceptions.ValidationException;
 import utn.metodologiasistemas2.sistematurnos.model.User;
+import utn.metodologiasistemas2.sistematurnos.projections.UserTurns;
 import utn.metodologiasistemas2.sistematurnos.repository.UserRepository;
 
 
@@ -41,6 +42,11 @@ public class UserService {
         }
 
         return  userRepository.findByFirstName(firstName);
+    }
+
+    public List<UserTurns> getAllUserCategory(String categoryName) {
+
+        return userRepository.findByCategory(categoryName);
     }
 
     public User login(String email, String password) throws UserNotexistException, ValidationException{

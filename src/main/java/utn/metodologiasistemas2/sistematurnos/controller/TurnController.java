@@ -17,7 +17,7 @@ import java.util.List;
 public class TurnController {
 
     private final TurnService turnService;
-    SessionManager sessionManager;
+    private final SessionManager sessionManager;
 
     @Autowired
     public TurnController(TurnService turnService, SessionManager sessionManager) {

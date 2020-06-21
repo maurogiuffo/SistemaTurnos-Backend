@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.model.User;
+import utn.metodologiasistemas2.sistematurnos.projections.UserTurns;
 import utn.metodologiasistemas2.sistematurnos.service.UserService;
 
 
@@ -49,5 +50,10 @@ public class UserController {
     @GetMapping("/")
     public List<User> getAll(@RequestParam(required = false) String firstname){
         return userService.getAllUser(firstname);
+    }
+
+    @GetMapping("/category")
+    public List<UserTurns> getAllCategory(@RequestParam(required = false) String categoryName){
+        return userService.getAllUserCategory(categoryName);
     }
 }

@@ -34,8 +34,6 @@ public class TurnService {
 
     public void CreateTurnsLote(CreateTurnsDTO createTurnsDTO, User user)
     {
-
-
         for (int i = 0; i< createTurnsDTO.cantidadDias; i++ )
         {
             for (int h = 0; h < createTurnsDTO.cantidadTurnos; h ++ )
@@ -52,7 +50,6 @@ public class TurnService {
 
                 turnRepository.save(turn);
             }
-
         }
     }
 }
