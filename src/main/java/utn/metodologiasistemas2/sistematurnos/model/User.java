@@ -21,8 +21,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private int id; //Entity
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
 
@@ -32,11 +34,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
-    private String username;
-
     private String password;
-
 
     @Column(name = "created_at")
     private Date createdAt;

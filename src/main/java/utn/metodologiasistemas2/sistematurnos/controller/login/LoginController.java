@@ -26,14 +26,20 @@ public class LoginController {
         this.sessionManager = sessionManager;
     }
 
+    class LoginResponse{
+        public String token;
+        public User user;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws InvalidLoginException, ValidationException {
-        ResponseEntity response;
+    public LoginResponse login(@RequestBody LoginRequestDto loginRequestDto) throws InvalidLoginException, ValidationException {
+        LoginResponse response= new LoginResponse();
         try {
-            User c = userService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
-            String token = sessionManager.createSession(c);
-            response = ResponseEntity.ok().headers(createHeaders(token)).build();
+            User user = userService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+            String token = sessionManager.createSession(user);
+            //response = ResponseEntity.ok().headers(createHeaders(token)).build();
+            response.token= token;
+            response.user= user;
         } catch (UserNotexistException e) {
             throw new InvalidLoginException(e);
         }
@@ -49,6 +55,7 @@ public class LoginController {
     HttpHeaders createHeaders(String token) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Authorization", token);
+        responseHeaders.set("token", token);
         return responseHeaders;
     }
 }
