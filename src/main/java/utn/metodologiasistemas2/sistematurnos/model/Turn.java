@@ -30,7 +30,7 @@ public class Turn {
     @Column(name = "turn_time")
     private LocalTime turnTime;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "user_customer")
     private User customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
