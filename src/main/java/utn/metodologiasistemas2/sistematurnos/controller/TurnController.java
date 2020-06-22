@@ -1,8 +1,12 @@
 package utn.metodologiasistemas2.sistematurnos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.metodologiasistemas2.sistematurnos.dto.CreateTurnsDTO;
+import utn.metodologiasistemas2.sistematurnos.exceptions.TurnNotexistException;
+import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.model.Turn;
 import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.service.TurnService;
@@ -25,6 +29,27 @@ public class TurnController {
         this.turnService = turnService;
         this.sessionManager= sessionManager;
     }
+
+    @PostMapping("/")
+    public ResponseEntity addTurnToUser(@RequestParam int id_user , int id_turn)
+    {
+        ResponseEntity response;
+
+        try {
+            response = ResponseEntity.ok(TurnService.addTurnToUser(id_user,id_turn));
+
+        } catch (UserNotexistException e) {
+
+            response = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+        } catch (TurnNotexistException e) {
+            e.printStackTrace();
+            response = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+        }
+        return response;
+    }
+
+
+
 
     @PostMapping("/")
     public void addTurn(@RequestBody Turn turn)
