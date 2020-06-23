@@ -30,13 +30,13 @@ public class TurnController {
         this.sessionManager= sessionManager;
     }
 
-    @PostMapping("/")
+    @PostMapping("/addCustomerTurn")
     public ResponseEntity addTurnToUser(@RequestParam int id_user , int id_turn)
     {
         ResponseEntity response;
 
         try {
-            response = ResponseEntity.ok(TurnService.addTurnToUser(id_user,id_turn));
+            response = ResponseEntity.ok(turnService.addTurnToUser(id_user,id_turn));
 
         } catch (UserNotexistException e) {
 
