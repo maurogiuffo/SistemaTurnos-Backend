@@ -63,9 +63,10 @@ public class TurnController {
     }
 
     @PostMapping("/createLote")
-    public void CreateTurnsLote(@RequestBody CreateTurnsDTO createTurnDTO,@RequestHeader("Authorization") String token)
+    public void CreateTurnsLote(@RequestBody CreateTurnsDTO createTurnDTO)
     {
-        User user= sessionManager.getCurrentUser(token);
-        turnService.CreateTurnsLote(createTurnDTO,user);
+        //User user= sessionManager.getCurrentUser(token);
+
+        turnService.CreateTurnsLote(createTurnDTO);
     }
 }

@@ -11,6 +11,7 @@ import utn.metodologiasistemas2.sistematurnos.projections.UserTurns;
 import utn.metodologiasistemas2.sistematurnos.service.UserService;
 
 
+import java.sql.ClientInfoStatus;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -54,6 +55,6 @@ public class UserController {
 
     @GetMapping("/category")
     public List<UserTurns> getAllCategory(@RequestParam(required = false) String categoryName){
-        return userService.getAllUserCategory(categoryName);
+        return  userService.getAllUserCategory(categoryName);
     }
 }

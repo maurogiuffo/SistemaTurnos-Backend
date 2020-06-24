@@ -12,11 +12,9 @@ import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.model.Turn;
 import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.repository.TurnRepository;
+import utn.metodologiasistemas2.sistematurnos.repository.UserRepository;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -24,10 +22,12 @@ import static java.util.Objects.isNull;
 public class TurnService {
 
     private final TurnRepository turnRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TurnService(TurnRepository turnRepository) {
+    public TurnService(TurnRepository turnRepository, UserRepository userRepository) {
         this.turnRepository = turnRepository;
+        this.userRepository=userRepository;
     }
 
     public ResponseEntity addTurnToUser(int id_user, int id_turn) throws UserNotexistException, TurnNotexistException {
@@ -65,8 +65,10 @@ public class TurnService {
         return turnRepository.findAll();
     }
 
-    public void CreateTurnsLote(CreateTurnsDTO createTurnsDTO, User user)
+    public void CreateTurnsLote(CreateTurnsDTO createTurnsDTO)
     {
+        Optional<User> user= userRepository.findById(createTurnsDTO.userId);
+
         for (int i = 0; i< createTurnsDTO.cantidadDias; i++ )
         {
             for (int h = 0; h < createTurnsDTO.cantidadTurnos; h ++ )
@@ -79,7 +81,7 @@ public class TurnService {
 
                 Turn turn  = new Turn();
                 turn.setTurnDate(calendar.getTime());
-                turn.setProfessional(user);
+                turn.setProfessional(user.get());
 
                 turnRepository.save(turn);
             }
