@@ -76,7 +76,7 @@ public class TurnService {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(createTurnsDTO.fechaDesde); // Configuramos la fecha que se recibe
                 calendar.add(Calendar.DAY_OF_YEAR, i);
-                calendar.add(Calendar.HOUR_OF_DAY,createTurnsDTO.horaDesde);
+                //calendar.add(Calendar.HOUR_OF_DAY,createTurnsDTO.horaDesde);
                 calendar.add(Calendar.MINUTE, h * createTurnsDTO.duracionTurno );
 
                 Turn turn  = new Turn();
