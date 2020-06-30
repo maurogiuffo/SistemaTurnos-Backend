@@ -8,6 +8,7 @@ import utn.metodologiasistemas2.sistematurnos.dto.AddCustomerTurnDTO;
 import utn.metodologiasistemas2.sistematurnos.dto.CreateTurnsDTO;
 import utn.metodologiasistemas2.sistematurnos.exceptions.TurnNotexistException;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
+import utn.metodologiasistemas2.sistematurnos.exceptions.ValidationException;
 import utn.metodologiasistemas2.sistematurnos.model.Turn;
 import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.service.TurnService;
@@ -44,10 +45,12 @@ public class TurnController {
 
         } catch (UserNotexistException e) {
 
-            response = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+            response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (TurnNotexistException e) {
             e.printStackTrace();
-            response = new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+            response = new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch ( ValidationException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         return response;
     }

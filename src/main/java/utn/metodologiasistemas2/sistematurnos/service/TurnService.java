@@ -9,6 +9,7 @@ import utn.metodologiasistemas2.sistematurnos.controller.TurnController;
 import utn.metodologiasistemas2.sistematurnos.dto.CreateTurnsDTO;
 import utn.metodologiasistemas2.sistematurnos.exceptions.TurnNotexistException;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
+import utn.metodologiasistemas2.sistematurnos.exceptions.ValidationException;
 import utn.metodologiasistemas2.sistematurnos.model.Turn;
 import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.repository.TurnRepository;
@@ -30,29 +31,18 @@ public class TurnService {
         this.userRepository=userRepository;
     }
 
-    public ResponseEntity addTurnToUser(int id_user, int id_turn) throws UserNotexistException, TurnNotexistException {
+    public Turn addTurnToUser(int id_user, int id_turn) throws UserNotexistException, TurnNotexistException, ValidationException {
 
-        try{
+
+            if (isNull(id_turn) || isNull(id_user)) throw  new ValidationException("You cant have null fields");
+
+            Turn turnAux = turnRepository.findById(id_turn).orElseThrow(    ()-> new TurnNotexistException());
+
+            User userAux  = userRepository.findById(id_user).orElseThrow(   ()-> new UserNotexistException());
 
             turnRepository.addTurnToUser(id_user, id_turn);
 
-            ResponseEntity.ok(HttpStatus.CREATED);
-        }catch (Exception e)
-        {
-            if(isNull(id_user))
-            {
-                System.out.println("No se ha encontrado el usuario");
-                return new ResponseEntity("Error con el Turno",HttpStatus.FORBIDDEN);
-            }
-            else if(isNull(id_turn))
-            {
-                System.out.println("No se ha encontrado el turno");
-                return new ResponseEntity("Error con el Turno",HttpStatus.FORBIDDEN);
-            }else {
-                System.out.println("Hubo un problema con el sistema");
-            }
-        }
-        return new ResponseEntity("Error SQL",HttpStatus.CONFLICT);
+            return turnAux;
     }
 
     public void addTurn(Turn turn)
