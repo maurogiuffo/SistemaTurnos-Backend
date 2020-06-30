@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import utn.metodologiasistemas2.sistematurnos.dto.AddCustomerTurnDTO;
 import utn.metodologiasistemas2.sistematurnos.dto.CreateTurnsDTO;
 import utn.metodologiasistemas2.sistematurnos.exceptions.TurnNotexistException;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
@@ -30,13 +31,16 @@ public class TurnController {
         this.sessionManager= sessionManager;
     }
 
+
+
     @PostMapping("/addCustomerTurn")
-    public ResponseEntity addTurnToUser(@RequestParam int id_user , int id_turn)
+    public ResponseEntity addTurnToUser(@RequestBody AddCustomerTurnDTO addCustomerTurnDTO)
     {
         ResponseEntity response;
 
         try {
-            response = ResponseEntity.ok(turnService.addTurnToUser(id_user,id_turn));
+            response = ResponseEntity.ok(
+                    turnService.addTurnToUser(addCustomerTurnDTO.userId,addCustomerTurnDTO.turnId));
 
         } catch (UserNotexistException e) {
 
