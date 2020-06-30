@@ -77,4 +77,13 @@ public class TurnService {
             }
         }
     }
+
+    public void deleteTurn(Turn turn) throws TurnNotexistException {
+        try {
+                turnRepository.delete(turn);
+        } catch ( Exception E) {
+            throw new TurnNotexistException();
+        }
+
+    }
 }

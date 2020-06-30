@@ -33,6 +33,20 @@ public class TurnController {
     }
 
 
+    @DeleteMapping
+    public ResponseEntity deleteTurn(@RequestBody Turn turn){
+        try {
+
+            turnService.deleteTurn(turn);
+
+            return ResponseEntity.noContent().build();
+
+        }catch ( TurnNotexistException  E){
+
+            return ResponseEntity.notFound().build();
+
+        }
+    }
 
     @PostMapping("/addCustomerTurn")
     public ResponseEntity addTurnToUser(@RequestBody AddCustomerTurnDTO addCustomerTurnDTO)
