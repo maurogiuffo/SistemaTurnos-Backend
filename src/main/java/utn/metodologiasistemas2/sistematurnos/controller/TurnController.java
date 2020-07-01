@@ -33,7 +33,7 @@ public class TurnController {
     }
 
 
-    @DeleteMapping
+    @PostMapping("/deleteTurn")
     public ResponseEntity deleteTurn(@RequestBody Turn turn){
         try {
 
