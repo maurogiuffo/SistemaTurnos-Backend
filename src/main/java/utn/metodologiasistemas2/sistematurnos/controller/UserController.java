@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.model.User;
-import utn.metodologiasistemas2.sistematurnos.projections.UserTurns;
+import utn.metodologiasistemas2.sistematurnos.dto.UserTurns;
 import utn.metodologiasistemas2.sistematurnos.service.UserService;
 
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -56,7 +54,11 @@ public class UserController {
     }
 
     @GetMapping("/category")
-    public List<UserTurns> getAllCategory(@RequestParam(required = false) String categoryName){
-        return  userService.getAllUserCategory(categoryName);
+    public ResponseEntity getAllCategory(@RequestParam(required = false) String categoryName){
+        try {
+            return ResponseEntity.ok(userService.getAllUserCategory(categoryName));
+        } catch (Exception E) {
+           return new ResponseEntity(E.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -5,11 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import utn.metodologiasistemas2.sistematurnos.model.Turn;
-import utn.metodologiasistemas2.sistematurnos.service.TurnService;
+import utn.metodologiasistemas2.sistematurnos.projections.TurnProjection;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TurnRepository extends JpaRepository<Turn,Integer> {
@@ -24,5 +23,6 @@ public interface TurnRepository extends JpaRepository<Turn,Integer> {
 
    // @Query("SELECT f FROM Turn f where f.User = null")
     List<Turn> findByCustomerIsNull();
+
 
 }

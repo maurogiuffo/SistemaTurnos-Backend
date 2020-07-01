@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 import utn.metodologiasistemas2.sistematurnos.exceptions.UserNotexistException;
 import utn.metodologiasistemas2.sistematurnos.exceptions.ValidationException;
 import utn.metodologiasistemas2.sistematurnos.model.User;
-import utn.metodologiasistemas2.sistematurnos.projections.UserTurns;
+import utn.metodologiasistemas2.sistematurnos.dto.UserTurns;
 import utn.metodologiasistemas2.sistematurnos.repository.UserRepository;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -44,9 +45,22 @@ public class UserService {
         return  userRepository.findByFirstName(firstName);
     }
 
-    public List<UserTurns> getAllUserCategory(String categoryName) {
+    public   List<UserTurns>  getAllUserCategory(String categoryName) {
 
-        return userRepository.findByCategory(categoryName);
+        List<UserTurns> turnsList = new ArrayList<>();
+
+
+        List<User> listProfessionals = userRepository.findByCategory(categoryName);
+
+            UserTurns userAux = new UserTurns();
+            userAux.setFirstName(listProfessionals.get(0).getFirstName());
+            userAux.setLastName(listProfessionals.get(0).getLastName());
+            userAux.setId(listProfessionals.get(0).getId());
+            userAux.setProfessionalTurns(userRepository.getTurnProjectionById(listProfessionals.get(0).getId()));
+            turnsList.add(userAux);
+
+
+        return turnsList;
     }
 
     public User login(String email, String password) throws UserNotexistException, ValidationException{
