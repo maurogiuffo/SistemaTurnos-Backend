@@ -45,20 +45,21 @@ public class UserService {
         return  userRepository.findByFirstName(firstName);
     }
 
-    public   List<UserTurns>  getAllUserCategory(String categoryName) {
+    public  List<UserTurns>  getAllUserCategory(String categoryName) {
 
         List<UserTurns> turnsList = new ArrayList<>();
 
 
         List<User> listProfessionals = userRepository.findByCategory(categoryName);
 
+        for(User professional:listProfessionals) {
             UserTurns userAux = new UserTurns();
-            userAux.setFirstName(listProfessionals.get(0).getFirstName());
-            userAux.setLastName(listProfessionals.get(0).getLastName());
-            userAux.setId(listProfessionals.get(0).getId());
-            userAux.setProfessionalTurns(userRepository.getTurnProjectionById(listProfessionals.get(0).getId()));
+            userAux.setFirstName(professional.getFirstName());
+            userAux.setLastName(professional.getLastName());
+            userAux.setId(professional.getId());
+            userAux.setProfessionalTurns(userRepository.getTurnProjectionById(professional.getId()));
             turnsList.add(userAux);
-
+        }
 
         return turnsList;
     }
