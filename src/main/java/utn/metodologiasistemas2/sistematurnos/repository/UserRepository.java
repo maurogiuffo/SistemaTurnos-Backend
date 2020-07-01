@@ -3,6 +3,7 @@ package utn.metodologiasistemas2.sistematurnos.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import utn.metodologiasistemas2.sistematurnos.model.User;
 import utn.metodologiasistemas2.sistematurnos.projections.TurnProjection;
 
@@ -20,8 +21,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
      @Query(value = "select u from User u where u.category.categoryName = :categoryName")
      List<User> findByCategory(String categoryName);
 
-    @Query(value = "Select t.id_turn as Id, t.customer_id_user as CustomerId, t.professional_id_user as ProfessionalId,\n" +
+
+    @Query(value = "Select t.id_turn as Id, ifnull(t.customer_id_user,0) as CustomerId, t.professional_id_user as ProfessionalId,\n" +
             "t.turn_date as TurnDate,t.created_at as CreatedAt,DATE_FORMAT(t.turn_date,'%T') as TurnTime\n" +
             "FROM Turns as T where t.professional_id_user = ?1 ",nativeQuery = true)
+    @Transactional
     List<TurnProjection> getTurnProjectionById(int professionalId);
 }
