@@ -48,6 +48,8 @@ public class UserController {
         userService.addUser(user);
     }
 
+
+
     @GetMapping("/")
     public List<User> getAll(@RequestParam(required = false) String firstname){
         return userService.getAllUser(firstname);

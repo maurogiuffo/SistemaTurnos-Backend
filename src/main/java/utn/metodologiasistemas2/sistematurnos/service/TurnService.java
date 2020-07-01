@@ -52,7 +52,7 @@ public class TurnService {
 
     public List<Turn> getAllTurns()
     {
-        return turnRepository.findAll();
+        return turnRepository.findByCustomerIsNull();
     }
 
     public void CreateTurnsLote(CreateTurnsDTO createTurnsDTO)

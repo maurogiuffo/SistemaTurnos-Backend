@@ -83,6 +83,8 @@ public class TurnController {
         return turnService.getAllTurns();
     }
 
+
+
     @PostMapping("/createLote")
     public void CreateTurnsLote(@RequestBody CreateTurnsDTO createTurnDTO)
     {
